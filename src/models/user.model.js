@@ -13,6 +13,11 @@ const userSchema = new mongoose.Schema(
       unique: true,
     },
 
+    phone: {
+      type: String,
+      required: [true, "Email is required"],
+    },
+
     password: {
       type: String,
       required: [true, "Password is required"],
@@ -26,7 +31,7 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: [true, "User type is required"],
       default: "client",
-      enm: ["client", "admin", "vender"],
+      enm: ["client", "admin", "vender", "driver"],
     },
 
     profile: {
@@ -38,4 +43,4 @@ const userSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-module.exports = new mongoose.model("User", userSchema);
+export const User = new mongoose.model("User", userSchema);
