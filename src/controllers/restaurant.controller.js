@@ -118,12 +118,21 @@ const getRestaurantGetByIdController = async (req, res) => {
 
 const deleteRestaurantGetController = async (req, res) => {
   try {
-    const userId = await Restaurant.findByIdAndDelete(req.params.id);
-  
+    const userId = req.params.id;
+
     if (!userId) {
       res.status(401).send({
         success: false,
         massage: "Please provide a restaurants Id",
+      });
+    }
+
+    const deletedRestaurant = await Restaurant.findByIdAndDelete(userId);
+
+    if (!deletedRestaurant) {
+      return res.status(401).send({
+        success: false,
+        massage: "No restaurant is associated with this id ",
       });
     }
 
